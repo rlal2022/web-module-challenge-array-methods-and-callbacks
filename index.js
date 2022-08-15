@@ -51,8 +51,8 @@ Use the higher-order function called getYears to do the following:
 2. Receive a callback function as the second parameter that will take getFinals from task 2 as an argument
 3. Return an array called years containing all of the years in the getFinals data set*/
 
-function getYears(/* code here */) {
-  /* code here */
+function getYears(years, cb) {
+  return cb(years).map((year) => year.Year);
 }
 
 /* 🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀 Task 4: 🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀
@@ -63,8 +63,14 @@ Use the higher-order function getWinners to do the following:
 💡 HINT: Don't worry about ties for now (Please see the README file for info on ties for a stretch goal.)
 4. Returns the names of all winning countries in an array called `winners` */
 
-function getWinners(/* code here */) {
-  /* code here */
+function getWinners(array, cb) {
+  return cb(array).map((f) => {
+    if (f["Home Team Goals"] > f["Away Team Goals"]) {
+      return f["Home Team Name"];
+    } else {
+      return f["Away Team Name"];
+    }
+  });
 }
 
 /* 🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀 Task 5: 🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀 
@@ -78,8 +84,14 @@ Use the higher-order function getWinnersByYear to do the following:
 💡 HINT: the strings returned need to exactly match the string in step 4.
  */
 
-function getWinnersByYear(/* code here */) {
-  /* code here */
+function getWinnersByYear(array, cbFinals, cbYears, cbWinners) {
+  const yearWon = cbYears(array, getYears);
+  const finals = cbFinals(array, getFinals);
+  const winners = cbWinners(array, getWinners);
+
+  return winners.map(
+    (f, index) => `In ${yearWon[index]}, ${winners[index]} won the world cup!`
+  );
 }
 
 /* 🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀 Task 6: 🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀
@@ -95,9 +107,15 @@ Use the higher order function getAverageGoals to do the following:
  
 */
 
-function getAverageGoals(/* code here */) {
-  /* code here */
+function getAverageGoals(array) {
+  const avgGoals = array.reduce((x, f) => {
+    return x + f["Home Team Goals"] + f["Away Team Goals"];
+  }, 0);
+
+  return (avgGoals / array.length).toFixed(2);
 }
+
+console.log(getAverageGoals(fifaData));
 
 /// 🥅 STRETCH 🥅 ///
 
