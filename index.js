@@ -38,8 +38,11 @@ Use getFinals to do the following:
 💡 HINT - you should be looking at the stage key inside of the objects
 */
 
-function getFinals(/* code here */) {
-  /* code here */
+function getFinals(finals) {
+  const finalStage = finals.filter((f) => {
+    return f.Stage === "Final";
+  });
+  return finalStage;
 }
 
 /* 🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀 Task 3: 🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀
